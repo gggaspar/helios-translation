@@ -41,84 +41,84 @@ provided (in Brazilian Portuguese).
 ## More Information
 
 ### The Good
-    Helios is quite easy to translate! It uses the Django framework, which
-    already provides facilities that ease the effort of translating Helios
-    to pretty much any language. The strings in Helios can be easily tagged
-    n code for translation. They are then united in a single file called
-    _django.po_, inside which you can specify the individual string
-    translations to the language of your preference.
+   Helios is quite easy to translate! It uses the Django framework, which
+   already provides facilities that ease the effort of translating Helios
+   to pretty much any language. The strings in Helios can be easily tagged
+   n code for translation. They are then united in a single file called
+   _django.po_, inside which you can specify the individual string
+   translations to the language of your preference.
 
 ### The Bad
-    First of all, in order for any of this to work, every single string in
-    Helios' code that is presented to the user needs to be _tagged_ in every
-    single place it occurs. Unfortunately, the _helios-server_ raw code does
-    not do that by default, meaning **you** will have to search the whole
-    _helios-server_ code for every single occurrence of every single string
-    that might be presented to the user and **tag** them in accordance to the
-    Django translation specifications that can be found
-    [here](https://docs.djangoproject.com/en/3.0/topics/i18n/translation/).
-    Furthermore, after tagging all of those strings, you will still have to
-    translate them, and there are many, many different strings (about 400!).
+   First of all, in order for any of this to work, every single string in
+   Helios' code that is presented to the user needs to be _tagged_ in every
+   single place it occurs. Unfortunately, the _helios-server_ raw code does
+   not do that by default, meaning **you** will have to search the whole
+   _helios-server_ code for every single occurrence of every single string
+   that might be presented to the user and **tag** them in accordance to the
+   Django translation specifications that can be found
+   [here](https://docs.djangoproject.com/en/3.0/topics/i18n/translation/).
+   Furthermore, after tagging all of those strings, you will still have to
+   translate them, and there are many, many different strings (about 400!).
 
 ### The Ugly
-    Helios' code also contains static files that are not touched by Django's
-    translation machinery. This means those files cannot be translated via
-    a django.po file; they need, instead, an individual and manual translation
-    effort.
+   Helios' code also contains static files that are not touched by Django's
+   translation machinery. This means those files cannot be translated via
+   a django.po file; they need, instead, an individual and manual translation
+   effort.
 
 ### String tagging and translation with a patch
-    In order to ease the translation effort, a translation patch is provided
-    here. Ideally, it already tags automatically the majority of the strings
-    of the code. Additionaly, the patch already creates an example Brazilian
-    Portuguese translation inside the _helios_server/locale_ directory. This
-    can be used as a practical example of how to create one's own translation
-    to one's own language of preference.
+   In order to ease the translation effort, a translation patch is provided
+   here. Ideally, it already tags automatically the majority of the strings
+   of the code. Additionaly, the patch already creates an example Brazilian
+   Portuguese translation inside the _helios_server/locale_ directory. This
+   can be used as a practical example of how to create one's own translation
+   to one's own language of preference.
 
-### Patch sensibility
-    The main problem with this patching approach is: since, for some reason,
-    the original English text strings are dispersed throughout everywhere in
-    the code, every single time the original Helios code is modified upstream
-    there is a major change that the translation patch will be broken as well.
-    And a broken translation patch will fail to fully tag the text strings.
-    That makes it rather difficult to keep this effort in sync with upstream
-    modifications (which currently do not seem to happen very often). That is
-    the main reason why an _helios-server_ version is provided in here as well:
-    it is a version of Helios that is known to be compatible with the
-    translation patch and the instructions provided herein.
+### Patching is very sensible to upstream
+   The main problem with this patching approach is: since, for some reason,
+   the original English text strings are dispersed throughout everywhere in
+   the code, every single time the original Helios code is modified upstream
+   there is a major change that the translation patch will be broken as well.
+   And a broken translation patch will fail to fully tag the text strings.
+   That makes it rather difficult to keep this effort in sync with upstream
+   modifications (which currently do not seem to happen very often). That is
+   the main reason why an _helios-server_ version is provided in here as well:
+   it is a version of Helios that is known to be compatible with the
+   translation patch and the instructions provided herein.
    
 
 ## Notes on translation
 
 ### General translation
-    The default translation process is rather simple: simply edit the _msgstr_
-    line in the template with a translation string that corresponds to the
-    accompanying _msgid_ string. Example:
+   The default translation process is rather simple: simply edit the _msgstr_
+   line in the template with a translation string that corresponds to the
+   accompanying _msgid_ string. Example:
 
-    ```console
-    msgid "Original string"
-    msgstr "My translation"
-    ```
+   ```console
+   msgid "Original string"
+   msgstr "My translation"
+   ```
 
 ### Translating long strings
-    Upon inspecting the django.po file you will notice that some of the strings
-    in there are quite long. If your translation string needs to span multiple
-    lines then you will need to make a **multiline translation**. A multiline
-    translation leaves the _msgstr_ line with an empty string and fills the
-    translation in the following lines below until it is done, making sure
-    every line is a single string. The Django translation mechanism then takes
-    care of joining those lines in a single string.
+   Upon inspecting the django.po file you will notice that some of the strings
+   in there are quite long. If your translation string needs to span multiple
+   lines then you will need to make a **multiline translation**. A multiline
+   translation leaves the _msgstr_ line with an empty string and fills the
+   translation in the following lines below until it is done, making sure
+   every line is a single string. The Django translation mechanism then takes
+   care of joining those lines in a single string.
 
-    An example will make it clear:
+   An example will make it clear:
 
-    ```console
-    msgid ""
-    "This is a somewhat long string that spans multiple lines. I will most "
-    "probably need to translate this into the language of my preference by "
-    "using a multiline translation."
-    msgstr ""
-    "Here goes the translation of the above string into the language of my "
-    "preference. Notice that the 'msgstr' line contains an empty string and "
-    "also notice that every line is a separate string of its own."
+   ```console
+   msgid ""
+   "This is a somewhat long string that spans multiple lines. I will most "
+   "probably need to translate this into the language of my preference by "
+   "using a multiline translation."
+   msgstr ""
+   "Here goes the translation of the above string into the language of my "
+   "preference. Notice that the 'msgstr' line contains an empty string and "
+   "also notice that every line is a separate string of its own."
    ```
 
    In principle there is abolutely no compatibility problem if the original
@@ -144,21 +144,21 @@ provided (in Brazilian Portuguese).
    
 
 ### Strings with formatting
-    Some strings inside the django.po file will contain formatting information,
-    such as new lines or tags as <li>, <b>, <u> etc. For such strings, try to
-    keep the same formatting (or as close as possible) in the translation you
-    provide so as to keep the same visual as what is seen by the user in the
-    default English language. Examples may be found in the Brazilian Portuguese
-    version provided here.
+   Some strings inside the django.po file will contain formatting information,
+   such as new lines or tags as <li>, <b>, <u> etc. For such strings, try to
+   keep the same formatting (or as close as possible) in the translation you
+   provide so as to keep the same visual as what is seen by the user in the
+   default English language. Examples may be found in the Brazilian Portuguese
+   version provided here.
 
 
 ### String contexts
-    Some strings might be accompanied of an additional attribute by the name
-    of _msgctxt_. This specifies the **context** in which the string is used
-    in the code. It is an attempt to give the translator hints on what the
-    string being translated is referring to. That being said, some of the
-    contextual markers might not make sense in every language. As an example,
-    some languages, like Brazilian Portuguese, need to flex adjectives
-    according to gender, which is what the "masculine" and "feminine" contexts
-    try to establish. In languages that do not flex according to gender, this
-    contextual marker makes no sense.
+   Some strings might be accompanied of an additional attribute by the name
+   of _msgctxt_. This specifies the **context** in which the string is used
+   in the code. It is an attempt to give the translator hints on what the
+   string being translated is referring to. That being said, some of the
+   contextual markers might not make sense in every language. As an example,
+   some languages, like Brazilian Portuguese, need to flex adjectives
+   according to gender, which is what the "masculine" and "feminine" contexts
+   try to establish. In languages that do not flex according to gender, this
+   contextual marker makes no sense.
