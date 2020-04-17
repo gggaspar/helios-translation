@@ -7,10 +7,10 @@ provided (in Brazilian Portuguese).
 
 ## How do I use all this?
    You can download the _helios-server_ code found in here, install it
-   according to original instructions and apply the translation patch
-   found in here. It is not guaranteed this will work with newer versions
-   cloned directly from the original upstream (actually, it probably won't;
-   see further below why).
+   according to original instructions and then apply the translation patch
+   that can also be found here. It is not guaranteed this patch will work
+   with newer Helios versions cloned directly from the original upstream;
+   see further below as to why.
 
    The application of the translation patch already _tags_ (hopefully) all
    strings in the _helios-server_ code and provides an example Brazilian
