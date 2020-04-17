@@ -41,46 +41,50 @@ provided (in Brazilian Portuguese).
 ## More Information
 
 ### The Good
-   Helios is quite easy to translate! It uses the Django framework, which
-   already provides facilities that ease the effort of translating Helios
-   to pretty much any language. The strings in Helios can be easily tagged
-   n code for translation. They are then united in a single file called
-   _django.po_, inside which you can specify the individual string
-   translations to the language of your preference.
+    Helios is quite easy to translate! It uses the Django framework, which
+    already provides facilities that ease the effort of translating Helios
+    to pretty much any language. The strings in Helios can be easily tagged
+    n code for translation. They are then united in a single file called
+    _django.po_, inside which you can specify the individual string
+    translations to the language of your preference.
 
 ### The Bad
-   First of all, in order for any of this to work, every single string in
-   Helios' code that is presented to the user needs to be _tagged_ in every
-   single place it occurs. Unfortunately, the _helios-server_ raw code does
-   not do that by default, meaning **you** will have to search the whole
-   _helios-server_ code for every single occurrence of every single string
-   that might be presented to the user and **tag** them in accordance to the
-   Django translation specifications that can be found
-   [here](https://docs.djangoproject.com/en/3.0/topics/i18n/translation/).
-   Furthermore, after tagging all of those strings, you will still have to
-   translate them, and there are many, many different strings (about 400!).
+    First of all, in order for any of this to work, every single string in
+    Helios' code that is presented to the user needs to be _tagged_ in every
+    single place it occurs. Unfortunately, the _helios-server_ raw code does
+    not do that by default, meaning **you** will have to search the whole
+    _helios-server_ code for every single occurrence of every single string
+    that might be presented to the user and **tag** them in accordance to the
+    Django translation specifications that can be found
+    [here](https://docs.djangoproject.com/en/3.0/topics/i18n/translation/).
+    Furthermore, after tagging all of those strings, you will still have to
+    translate them, and there are many, many different strings (about 400!).
 
 ### The Ugly
-   Helios' code also contains static files that are not touched by Django's
-   translation machinery. This means those files cannot be translated via
-   a django.po file; they need, instead, an individual and manual translation
-   effort.
+    Helios' code also contains static files that are not touched by Django's
+    translation machinery. This means those files cannot be translated via
+    a django.po file; they need, instead, an individual and manual translation
+    effort.
 
-### Some good news
-   In order to ease the translation effort, a translation patch is provided
-   here. Ideally, it already tags automatically the majority of the strings
-   of the code. Additionaly, the patch already creates an example Brazilian
-   Portuguese translation inside the _helios_server/locale_ directory. This
-   can be uses as a practical example of how to create one's own translation
-   to one's language of preference.
+### String tagging and translation with a patch
+    In order to ease the translation effort, a translation patch is provided
+    here. Ideally, it already tags automatically the majority of the strings
+    of the code. Additionaly, the patch already creates an example Brazilian
+    Portuguese translation inside the _helios_server/locale_ directory. This
+    can be used as a practical example of how to create one's own translation
+    to one's own language of preference.
 
-### And some more bad news
-   The main problem with this patching approach is: since, for some reason,
-   the original English text strings are dispersed throughout everywhere in
-   the code, every single time the original Helios code is modified upstream
-   there is a major change that the translation patch will be broken. And a
-   broken translation patch will fail to fully tag the text strings. That
-   makes it somewhat difficult to keep this effort in sync with
+### Patch sensibility
+    The main problem with this patching approach is: since, for some reason,
+    the original English text strings are dispersed throughout everywhere in
+    the code, every single time the original Helios code is modified upstream
+    there is a major change that the translation patch will be broken as well.
+    And a broken translation patch will fail to fully tag the text strings.
+    That makes it rather difficult to keep this effort in sync with upstream
+    modifications (which currently do not seem to happen very often). That is
+    the main reason why an _helios-server_ version is provided in here as well:
+    it is a version of Helios that is known to be compatible with the
+    translation patch and the instructions provided herein.
    
 
 ## Notes on translation
