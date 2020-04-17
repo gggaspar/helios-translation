@@ -145,9 +145,9 @@ provided (in Brazilian Portuguese).
 
 ### Strings with formatting
    Some strings inside the django.po file will contain formatting information,
-   such as new lines or tags as <li>, <b>, <u> etc. For such strings, try to
-   keep the same formatting (or as close as possible) in the translation you
-   provide so as to keep the same visual as what is seen by the user in the
+   such as new lines or tags as `<li>`, `<b>`, `<u>` etc. For such strings,
+   try to keep the same formatting (or as close as possible) in the translation
+   you provide so as to keep the same visual as what is seen by the user in the
    default English language. Examples may be found in the Brazilian Portuguese
    version provided here.
 
