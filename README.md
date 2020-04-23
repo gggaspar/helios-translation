@@ -34,8 +34,31 @@ provided (in Brazilian Portuguese).
    fill in all **msgstr** empty strings with text translations that
    correspond to the accompanying **msgid** English versions.
 
-   For a reference on how the translations in the django.po file can be filled,
-   the pt_BR/django.po file in this repository can be consulted.
+   **HINT:** leaving a _msgstr_ string as the default empty value makes
+   Django use the same text as presented in _msgid_. You can use this
+   to your advantage: if you find a text string that you deem not to need
+   a translation to you language of choice (e.g. maybe words like "email"
+   or "login"), simply leave the _msgstr_ string empty and Django will use
+   the same value contained in the accompanying _msgid_.
+
+   Finally, after filling in your translations, you will only need to compile
+   your new _django.po_ file. This is easily done with the following command
+   (make sure you are in _helios-server_ root):
+
+   ```console
+   # django-admin compilemessages
+   ```   
+
+   **IMPORTANT:** Django's translations are sensitive to the page language
+   that your browser requests. That means Django will try to fetch the
+   language your browser is requesting for web pages in order to present it
+   to you. Meaning: **to test your own translations, make sure your browser is
+   requesting Helios' pages in the language you translated for**. How to do
+   this is highly dependable on the web browser you are using, but is usually
+   easily configurable (at least for the most common browsers).
+
+   **HINT:** for a reference on how the translations in the django.po file can
+   be filled, the pt_BR/django.po file in this repository can be consulted.
 
 
 ## More Information
@@ -160,5 +183,5 @@ provided (in Brazilian Portuguese).
    contextual markers might not make sense in every language. As an example,
    some languages, like Brazilian Portuguese, need to flex adjectives
    according to gender, which is what the "masculine" and "feminine" contexts
-   try to establish. In languages that do not flex according to gender, this
-   contextual marker makes no sense.
+   try to establish. In languages that do not flex words according to gender,
+   this contextual marker makes no sense.
