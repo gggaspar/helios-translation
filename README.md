@@ -86,8 +86,14 @@ provided (in Brazilian Portuguese).
 ### The Ugly
    Helios' code also contains static files that are not touched by Django's
    translation machinery. This means those files cannot be translated via
-   a django.po file; they need, instead, an individual and manual translation
-   effort.
+   a django.po file; currently they need an individual and manual translation
+   effort in the sense that translated versions of those static files need
+   to be individually crafted for each language. File redirections to each of
+   these different language versions are needed based on JavaScript code that
+   checks the browser language preferences to load the correct file. These
+   redirections have already been placed and should hopefully work for any
+   language. Ugly, yes, but functional without much modification to the
+   original code.
 
 ### String tagging and translation with a patch
    In order to ease the translation effort, a translation patch is provided
@@ -99,15 +105,17 @@ provided (in Brazilian Portuguese).
 
 ### Patching is very sensible to upstream
    The main problem with this patching approach is: since, for some reason,
-   the original English text strings are dispersed throughout everywhere in
-   the code, every single time the original Helios code is modified upstream
-   there is a major change that the translation patch will be broken as well.
-   And a broken translation patch will fail to fully tag the text strings.
-   That makes it rather difficult to keep this effort in sync with upstream
+   the original English text strings are dispersed everywhere in the code,
+   every single time the original Helios code is modified upstream there is
+   a major chance that the translation patch will be broken as well. And a
+   broken translation patch will fail to fully tag the text strings. That
+   makes it rather difficult to keep this effort in sync with upstream
    modifications (which currently do not seem to happen very often). That is
    the main reason why an _helios-server_ version is provided in here as well:
    it is a version of Helios that is known to be compatible with the
-   translation patch and the instructions provided herein.
+   translation patch and the instructions provided herein. The ideal situation
+   is for the original Helios code to already provide the strings properly
+   tagged for translation.
    
 
 ## Notes on translation
@@ -185,3 +193,82 @@ provided (in Brazilian Portuguese).
    according to gender, which is what the "masculine" and "feminine" contexts
    try to establish. In languages that do not flex words according to gender,
    this contextual marker makes no sense.
+
+### Static files and redirections
+   As previously mentioned, static files in the code tree are not touched by
+   any translation machinery. That way,an option to translate such files is
+   to add a manually translated version to each language aimed to be supported:
+   the correct version to be presented is then chosen by JavaScript redirection
+   code which detects the browser's requested language.
+
+   Below is a listing of all files in the code tree that need to be modified
+   or created manually in order for translation to work for those files:
+
+   * helios-server/helios/media/static_templates/LANG/
+     - question.html
+
+   * helios-server/helios/templates/email/[LANG]/
+     - info_body.txt
+     - info_subject.txt
+     - result_body.txt
+     - result_subject.txt
+     - simple_body.txt
+     - simple_subject.txt
+     - vote_body.txt
+     - vote_subject.txt
+
+   * helios-server/heliosbooth/templates/[LANG]/
+     - audit.html
+     - done.html
+     - election.html
+     - footer.html
+     - header.html
+     - question.html
+     - seal.html
+     - submit.html
+
+   * helios-server/server_ui/templates/email/[LANG]/
+     - cast_vote_body.txt
+     - cast_vote_subject.txt
+
+   * helios-server/heliosbooth/
+     - single-ballot-verify.html (**converted to redirection**)
+     - vote.html (**converted to redirection**)
+     - default-sbv.html (_sbv_ is short for _single-ballot-verifier_)
+     - default-vote.html
+     - [LANG]-sbv.html
+     - [LANG]-verifier.js
+     - [LANG]-verifierworker.js
+     - [LANG]-vote.html
+
+   * helios-server/heliosverifier/
+     - verify.html (**converted to redirection**)
+     - default-verify.html
+     - [LANG]-verify.html
+
+   Directories and files with **[LANG]** mean those directories and files need
+   to be created substituting **[LANG]** with the code for the language you are
+   translating to (e.g. _pt-BR_ for Brazilian Portuguese or _nl_ for Dutch).
+   Files marked with **converted to redirection** are files present in the
+   original Helios code that have been fully modified with the sole purpose of
+   redirecting execution to the correct language file; their original versions
+   have been delegated to the similarly named _default-*_ variants.
+
+   This is the currently ugly part of the translation process: all of the above
+   files need to be manually verified for strings, each of which then need to
+   be manually translated in place by a corresponding version in another
+   language. Careful not to modify any code! Again, the Brazilian Portuguese
+   version of such files (pt-BR) may be used as a template.
+
+   **OBSERVATION 1:** the translation patch eases this process by taking care
+   of creating the redirection files as well as the _default-*_ versions, so
+   you will only need to create your [LANG]-* versions of those.
+
+   **OBSERVATION 2:** do take care if your language code is composed of a
+   language and country specification (e.g. pt-BR for Brazilian Portuguese).
+   The Django translation in _helios-server/locale/_ expects a **locale name**:
+   in the case of Brazilian Portuguese, that is **pt_BR** (language and
+   country are separated by an underscore). In the case of the above
+   static file translations, which use JavaScript, a **language code** is
+   expected: in the case of Brazilian Portuguese, that is **pt-BR** (notice
+   the dash separating language and country specifications).
