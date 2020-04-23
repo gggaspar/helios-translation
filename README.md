@@ -12,6 +12,19 @@ provided (in Brazilian Portuguese).
    with newer Helios versions cloned directly from the original upstream;
    see further below as to why.
 
+   Basically, all you need to do after cloning this repository is:
+   ```console
+   # cd helios-translation  // enter repository root
+   # cp -r helios-server helios-server-copy  // always work on a copy
+   # cd helios-server-copy  // enter Helios copied root
+   # cp ../patch/translation.patch .  // copy translation patch to Helios root
+   # patch -p1 < translation.patch
+   ```
+   You should now have a patched version of Helios Server that is ready to
+   accept new translations. Of course, in order to make use of Helios you
+   will still need to properly configure the server. Instructions and pointers
+   on how to do that may be found in the Helios Voting website.
+
    The application of the translation patch already _tags_ (hopefully) all
    strings in the _helios-server_ code and provides an example Brazilian
    Portuguese translation under _helios-server/locale/pt_BR/_. Translations
@@ -204,7 +217,7 @@ provided (in Brazilian Portuguese).
    Below is a listing of all files in the code tree that need to be modified
    or created manually in order for translation to work for those files:
 
-   * helios-server/helios/media/static_templates/LANG/
+   * helios-server/helios/media/static_templates/[LANG]/
      - question.html
 
    * helios-server/helios/templates/email/[LANG]/
@@ -234,7 +247,7 @@ provided (in Brazilian Portuguese).
    * helios-server/heliosbooth/
      - single-ballot-verify.html (**converted to redirection**)
      - vote.html (**converted to redirection**)
-     - default-sbv.html (_sbv_ is short for _single-ballot-verifier_)
+     - default-sbv.html (_sbv_ is short for _single-ballot-verify_)
      - default-vote.html
      - [LANG]-sbv.html
      - [LANG]-verifier.js
